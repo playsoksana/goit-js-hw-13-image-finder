@@ -1,5 +1,5 @@
 {
-  "name": "webpack-base",
+  "name": "goit-js-hw-13-image-finder",
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
@@ -7,20 +7,19 @@
     "dev": "webpack-dev-server --env.mode development --config ./webpack/config.js",
     "prod": "webpack --env.mode production --config ./webpack/config.js",
     "predeploy": "npm run prod",
-    "deploy": "gh-pages -d build",
-    "server": "json-server --watch db.json"
+    "deploy": "gh-pages -d build"    
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/playsoksana/webpack-base.git"
+    "url": "git+https://github.com/playsoksana/goit-js-hw-13-image-finder.git"
   },
   "keywords": [],
   "author": "PLS",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/playsoksana/webpack-base/issues"
+    "url": "https://github.com/playsoksana/goit-js-hw-13-image-finder/issues"
   },
-  "homepage": "https://github.com/playsoksana/webpack-base#readme",
+  "homepage": "https://github.com/playsoksana/goit-js-hw-13-image-finder#readme",
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -51,8 +50,10 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
+    "basiclightbox": "^5.0.4",
     "core-js": "^3.6.5",
     "handlebars": "^4.7.6",
-    "json-server": "^0.16.3"
+    "json-server": "^0.16.3",
+    "material-design-icons": "^3.0.1"
   }
 }

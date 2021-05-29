@@ -1,55 +1,58 @@
+import { defaults } from '@pnotify/core';
 import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/core/dist/Material.css';
-import { defaults } from '@pnotify/core';
+import { alert, defaultModules, defaultStack } from '@pnotify/core';
+import * as PNotifyMobile from '@pnotify/mobile';
+defaultModules.set(PNotifyMobile, {});
 defaults.styling = 'material';
-defaults.icons = 'material';
-import 'material-design-icons/iconfont/material-icons.css';
-
-
-
-
-
-
-
-
-
-
-
+import error from './error.js'
+// ==
 import './styles.css';
 import './js/apiService';
-
+// ==
+import Refs from './js/refs.js';
+const refs = Refs();
+// ==
 import maktupList from './js/templates/maktupList.hbs'
 import ApiService from './js/apiService';
+// ==
 const apiService = new ApiService;
-const refs = {
-    body: document.querySelector("body"),
-    form: document.querySelector("#search-form"),
-    btn: document.querySelector('.btn-load'),
-    list: document.querySelector('.list'),
-    body:document.querySelector('body')
-      
-}
+// ==
 
-function makeMaktup(data) {    
-   refs.list.insertAdjacentHTML('beforeend', maktupList(data));
+function makeMaktup(data) {
+    refs.list.insertAdjacentHTML('beforeend', maktupList(data));
+    defaultStack.close();
 }
 
 refs.form.addEventListener('submit', findingОnSubmit);
 
 function findingОnSubmit(ev) {
     clearCardsOnDom();
-    ev.preventDefault();
-    apiService.resetPage();
    
+    apiService.resetPage();
+    ev.preventDefault();
     apiService.searchQuery = ev.target.elements.query.value;
     addItionalLoading();
 };
 
 refs.btn.addEventListener('click', addItionalLoading);
 function addItionalLoading() {
-     refs.btn.scrollIntoView(false);
-   return apiService.requestOnUrl(apiService.searchQuery)
-       .then(data => makeMaktup(data));
+    // refs.btn.scrollIntoView(false);
+  
+    const element = document.getElementById('btn-load');
+element.scrollIntoView({
+  behavior: 'smooth',
+  block: 'end',
+});
+  
+      return apiService.requestOnUrl(apiService.searchQuery)
+          .then(data => {
+            if (data.hits.length === 0) {
+                  return error();
+              }
+              return makeMaktup(data)
+          })
+          .catch(error);
 }
 
 function clearCardsOnDom() {

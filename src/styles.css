@@ -12,7 +12,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-
+  background-color: lightgrey;
   /*
    * CSS image reference example.
    */
@@ -27,9 +27,7 @@ ul {
 }
 
 .button {
-  display: inline-flex;
   margin: 20px;
-  padding: 5px, 10px;
   border-radius: 5px;
   background-color: cornflowerblue;
   border-color: cornflowerblue;
@@ -46,9 +44,14 @@ ul {
 
 .photo-card {
   margin: 5px;
+  border: 1px solid grey;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: lightyellow;
 }
 
 .photo-card img {
-  width: 150px;
+  object-fit: cover;
   background-size: contain;
+  border-radius: 10px;
 }
