@@ -21,6 +21,7 @@ import {Spinner} from 'spin.js';
 const refs = Refs();
 const apiService = new ApiService;
 // ==
+
 function makeMaktup(data) {
     refs.list.insertAdjacentHTML('beforeend', maktupList(data));
     defaultStack.close();
@@ -36,15 +37,19 @@ function findingОnSubmit(ev) {
     ev.preventDefault();
     apiService.searchQuery = ev.target.elements.query.value;
     addItionalLoading();
+   
+    enableLoadingEffect(false);
 };
 
 refs.btn.addEventListener('click', addItionalLoading);
 function addItionalLoading() {
+        enableLoadingEffect(false);
       return apiService.requestOnUrl(apiService.searchQuery)
           .then(data => {
             if (data.hits.length === 0) {
                   return error();
               }
+                 enableLoadingEffect(true);
               return makeMaktup(data)
           })
           .catch(error);
@@ -52,6 +57,23 @@ function addItionalLoading() {
 
 function clearCardsOnDom() {
     refs.list.innerHTML = '';
+};
+// ==============
+
+refs.list.onclick = (ev) => {
+    if (!ev.target.getAttribute('data')) {
+        return;
+    }
+    const linkImg = ev.target.getAttribute('data');
+    const instance = basicLightbox.create(`
+     <div class="modal" >
+        <img class='img' src=${linkImg} alt="image" allowfullscreen>
+     </div>
+ `);
+    instance.show();
+    document.querySelector('.modal').onclick = (ev) => {
+     instance.close();
+}
 };
 
 // ==============
@@ -70,7 +92,7 @@ var opts = {
   direction: 1, // 1: clockwise, -1: counterclockwise
   color: '#ffffff', // CSS color or array of colors
   fadeColor: 'transparent', // CSS color or array of colors
-  top: '-7px', // Top position relative to parent
+  top: '9px', // Top position relative to parent
   left: '7%', // Left position relative to parent
   shadow: '0 0 1px transparent', // Box-shadow for the lines
   zIndex: 2000000000, // The z-index (defaults to 2e9)
@@ -81,3 +103,13 @@ var opts = {
 var target = document.getElementById('spinner');
 var spinner = new Spinner(opts).spin(target);
 spinner.spin(target);
+
+function enableLoadingEffect(value) {
+    if (value === true) {
+        refs.loading.setAttribute('hidden', `${value}`);
+        refs.download.removeAttribute('hidden');
+        return;
+    }
+    refs.loading.removeAttribute('hidden');
+    refs.download.setAttribute('hidden', `${value}`);
+};

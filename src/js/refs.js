@@ -4,6 +4,10 @@ export default function refs () {
     form: document.querySelector("#search-form"),
     btn: document.querySelector('.btn-load'),
     list: document.querySelector('.list'),
-    input:document.querySelector('.input')    
+    input:document.querySelector('.input'),
+        loading: document.querySelector('.load-button'),
+        download: document.querySelector('.download-button')
+    
+        
     }  
 }
