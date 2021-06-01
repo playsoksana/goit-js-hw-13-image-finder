@@ -1,7 +1,8 @@
 const basicLightbox = require('basiclightbox');
-// import * as basicLightbox from 'basicLightbox'; 
-import Refs from './refs.js';
-const refs = Refs();
+import "../../node_modules/basiclightbox/dist/basicLightbox.min.css"
+
+import { refs } from "./refs.js";
+
 export default refs.list.onclick = (ev) => {
     if (!ev.target.getAttribute('data')) {
         return;

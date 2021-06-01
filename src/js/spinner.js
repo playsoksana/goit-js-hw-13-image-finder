@@ -21,7 +21,7 @@ var opts = {
   position: 'absolute', // Element positioning
 };
 
- var target = document.getElementById('spinner');
+ var target = document.getElementById('spin');
  var spinner = new Spinner(opts).spin(target);
 
 

@@ -1,5 +1,4 @@
-export default function refs () {
-    return {
+export const refs =  {
     body: document.querySelector("body"),
     form: document.querySelector("#search-form"),
     btn: document.querySelector('.btn-load'),
@@ -10,4 +9,3 @@ export default function refs () {
     
         
     }  
-}

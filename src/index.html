@@ -9,15 +9,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" />
   </head>
 
-  <body>
-   
-    <h1><a href="https://pixabay.com/api/docs/">Images from the resource pixabay</a></h1>
+  <body>   
+    <a class="link-pixabay" href="https://pixabay.com/">
+          <img src="https://pixabay.com/static/img/public/medium_rectangle_a.png" alt="Pixabay">
+    </a>
      <form class="search-form" id="search-form">
     <input class="input" type="text" name="query" autocomplete="off" placeholder="Search images..." />
     <button class="button submit" type="submit">Look for</button>
   </form>
   <ul class="list"></ul>
-    <button class="btn-load button" id="btn-load" hidden='true'><span class="load-button" ><div id='spinner'></div>Loading</span><span class="download-button" hidden='true'>Download more</span></div>
+    <button class="btn-load button" id="btn-load" hidden='true'><span class="load-button" ><div id='spin'></div>Loading</span><span class="download-button" hidden='true'>Download more</span></div>
     </button>
 
   </body>

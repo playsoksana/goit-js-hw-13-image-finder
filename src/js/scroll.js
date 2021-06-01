@@ -1,6 +1,8 @@
+import {refs} from './refs.js'
+
 export default function scrollEnd() {
-        const btn = document.getElementById('btn-load');
-btn.scrollIntoView({
+
+        refs.btn.scrollIntoView({
   behavior: 'smooth',
   block: 'end',
 });

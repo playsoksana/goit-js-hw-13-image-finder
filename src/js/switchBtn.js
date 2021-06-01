@@ -1,5 +1,4 @@
-import Refs from '../src/js/refs.js';
-const refs = Refs();
+import {refs} from '../js/refs.js';
 
 function switchBtn(value) {
     if (value === true) {
