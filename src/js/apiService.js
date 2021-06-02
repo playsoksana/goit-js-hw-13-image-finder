@@ -9,17 +9,23 @@ export default class ApiService {
     constructor() {
         this.page = 1;
         this.searchQuery = '';
+        
 
     };
 
-    requestOnUrl() {
-
-        return fetch(`${URL}?${TUNING}&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${KEY}`)
-            .then(el => {
-                this.increment(); 
-                return el.json()}).catch(error);
+   async requestOnUrl() {
+        try {
+            const mainIncvery = await fetch(`${URL}?${TUNING}&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${KEY}`)
+            const inquiry = await mainIncvery.json();
+            this.increment(); 
+            return inquiry;
+        } catch {
+           return error
+        }
+               
+   
     }
-
+   
     increment() {
            this.page += 1;
     }

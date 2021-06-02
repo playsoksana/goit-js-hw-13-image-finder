@@ -34,27 +34,40 @@ function findingОnSubmit(ev) {
     switchBtn(false);
 };
 
-function addItionalLoading() {
-
-        switchBtn(false);
-      return apiService.requestOnUrl(apiService.searchQuery)
-          .then(data => {
-              if (data.hits.length < 1) {
-                  hiddenButton();
-                  clearInput();
-                  return error();
-              }
-              else {
-                  switchBtn(true);
-                  appendButton();
-                  return makeMaktup(data)
-              }
-          }).catch(error);
+async function addItionalLoading() {
+ try {
+    switchBtn(false);
+    const response = await apiService.requestOnUrl(apiService.searchQuery);
+ 
+return conditionCheck(response);
+ } catch {
+     return error
+ }
 }
+
+
+function conditionCheck (data) {
+        if (data.hits.length < 1) {
+            hiddenButton();
+            clearInput();
+            return error();
+        }
+        if(data.hits.length < 12) {
+          hiddenButton();
+          return makeMaktup(data);
+        }
+        else {
+            switchBtn(true);
+            appendButton();
+            return makeMaktup(data)
+        }
+    }
+
 
 function makeMaktup(data) {
     refs.list.insertAdjacentHTML('beforeend', maktupList(data));
      scrollEnd();
+
     defaultStack.close();
    
 }
@@ -76,4 +89,33 @@ function clearInput() {
 }
 
 spinner.spin(target);
+
+
+
+// ================
+//  function loadingByScroll () {
+//     const options = {
+//         root: null,
+//         rootMargin: '0px',
+//         threshold: 0.5
+// }
+// const observer = new IntersectionObserver((entries, observer) => {
+//     entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//             console.log('00000000');
+//             const lazyCard = entry.target;
+//             addItionalLoading();
+//             hiddenButton();
+
+
+//             observer.unobserve(lazyCard)
+//         }
+//        })
+// }, options)
+
+
+//     observer.observe(refs.btn);
+
+
+// }
 
