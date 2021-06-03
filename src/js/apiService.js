@@ -20,7 +20,7 @@ export default class ApiService {
             this.increment(); 
             return inquiry;
         } catch {
-           return error
+           return error();
         }
                
    
