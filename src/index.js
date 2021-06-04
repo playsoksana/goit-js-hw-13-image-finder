@@ -15,30 +15,6 @@ import maktupList from './js/templates/maktupList.hbs';
 refs.form.addEventListener('submit', findingОnSubmit);
 refs.button.addEventListener('click', activButton);
 
-let observerElement;
-const observer = new IntersectionObserver(elements => {
-  elements.forEach(element => {
-    if (element.intersectionRatio > 0) {   
-        addItionalLoading().then(el=>{           
-           observer.unobserve(observerElement);
-           observerElement = document.querySelector('.list > li:last-child');
-           observer.observe(observerElement);         
-        });
-    }
-  });
-});
-
-
-function activButton (ev) {
-    const currentButton = ev.currentTarget;
-    addItionalLoading().then(el=>{
-        observerElement = document.querySelector('.list > li:last-child');
-        observer.observe(observerElement);
-        hiddenButton();
-        currentButton.removeEventListener; 
-   });   
-}
-
 const apiService = new ApiService;
 function findingОnSubmit(ev) {
     ev.preventDefault();
@@ -70,20 +46,25 @@ async function addItionalLoading() {
 
 
 function conditionCheck (data) {
-        if (data.hits.length < 1) {
-            observer.observe(observerElement);
+    if (data.total < 1) {
+        return error();
+    }
+        else if (data.hits.length < 1) {
+            observer.unobserve(observerElement);
             hiddenButton();
-            console.log('vse');
-           // return message();
+         
         }
-        if(data.hits.length < 12 || data.total === 12) {
-            observer.observe(observerElement);
+        else if (data.total < 13) {
+            observer.disconnect(observerElement);
             hiddenButton();
             return makeMaktup(data);
         }
         else {
             switchBtn(true);
-            appendButton();
+            if(apiService.page === 2) {
+                appendButton();
+            }   
+          
             return makeMaktup(data)
         }
     }
@@ -111,4 +92,40 @@ function clearInput() {
     refs.input.value = '';
 }
 
+// ==============================
+// observer
+// ==============================
+
+let observerElement;
+const options = {
+    root: null,
+    rootMargin: '-10px',
+}
+const observer = new IntersectionObserver(onEntry, options);
+function onEntry (elements){
+    elements.forEach(element => {
+        if (element.isIntersecting) {   
+            addItionalLoading().then(el=>{           
+               observer.disconnect(observerElement);
+               if (observerElement !== document.querySelector('.list > li:last-child')) {
+                observerElement = document.querySelector('.list > li:last-child');
+                observer.observe(observerElement);
+               }
+            });
+        }
+      });
+}
+function activButton (ev) {
+    const currentButton = ev.currentTarget;
+    addItionalLoading().then(el=>{
+        observerElement = document.querySelector('.list > li:last-child');
+        observer.observe(observerElement);
+        hiddenButton();
+        currentButton.removeEventListener; 
+   });   
+} 
+
+// ==============================
+// spinner
+// ============================== 
 spinner.spin(target);
