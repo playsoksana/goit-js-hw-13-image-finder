@@ -63,10 +63,11 @@ ul {
 }
 
 .photo-card img {
-  object-fit: cover;
-  background-size: contain;
+  object-fit: contain;
   border-radius: 10px;
+
 }
+
 input {
   height: 28px;
   border-radius: 3px;
